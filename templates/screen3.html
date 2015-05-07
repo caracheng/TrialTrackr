@@ -1,7 +1,6 @@
 <!--GL: Why ng disable without ng model does not work: http://stackoverflow.com/questions/16207202/required-attribute-not-working-with-file-input-in-angular-js-->
 <h1 align="center">Setting up Round {{round}} - {{name}}</h1>
 <center><div class="directions">Enter team information <b>randomly</b>, then click the next arrow when you're ready to enter in the scores for round 1.</div></center>
-<input type="button" class="btn btn-default" ng-click="runAutoPop(pairing)" value="Run Auto-Populate">
 	<div id="enterTeams" ng-init = "configTeams()" class="cardTableTop">
 		<form name="teamCards" id="teamCards">
 			<table cellspacing="0" cellpadding="0" id="teamSetUpTable" class="setTeamCard">
@@ -46,7 +45,7 @@
 					</td>
 					
 					<td width="20px"><div ng-hide="$index == numTeams && isByeTeam"><center><h2>v.</h2></center></div>
-					<div ng-show="$index == numTeams && isByeTeam"><center><img src="resources/img/swap.gif" width="50" id="swapButton" ng-click="swapTeams()"></center></div>
+					<div ng-show="$index == numTeams && isByeTeam"><center><img src="resources/img/swap.gif" width="50" id="swapButton" ng-click="swapByeTeam()"></center></div>
 					</td>
 					
 					<td>
