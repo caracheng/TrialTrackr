@@ -1,0 +1,53 @@
+<h1 align="center">Round {{round}} - {{name}}</h1>
+<h3 align="center">Enter Team Information for Round {{round}} Pairings:</h3>
+<center><div class="directions">Below are the team pairings resulting from round {{round}}. Resolve impermissibles from top to bottom to continue to enter in scores for round {{round}}.</div></center>
+<p align="center">Swap list: {{swapList}}</p>
+<p align="center" ng-show = "round == 3">Round 3 coin flip: Tab Director must switch Plaintiff and Defense teams if the coin comes up tails.
+	<input type="button" class="btn btn-default" value="Result: {{flip}}" ng-click ="flipSides()">
+</p>
+	<div ng-init="pairTeams()">
+		<table cellspacing="0" cellpadding="0" class="setTeamCard">
+			<colgroup span="2"></colgroup>
+				<tbody>
+					<tr class="status" >
+					    <th scope="col" title="Plaintiff" style="text-align:center"><h3>Plaintiff</h3></th>
+						<th scope="col" title="Defense" style="text-align:center"><h3>Defense</h3></th>
+					</tr>
+					<tr ng-repeat="pair in this.newPairings">
+						<td >
+							<form class="teamCard">
+								<div id="teamCard" >
+									<h4 style="text-align:center"> {{pair.pTeam.name}} - {{pair.pTeam.uniqueID}} </h4>
+									<b>Team Record:</b> {{pair.pTeam.record}} <br>
+									<b>Team CS:</b> {{pair.pTeam.combinedStr}} <br>
+									<b>Team PD:</b> {{pair.pTeam.pointDiff}} <br>
+								</div>
+							</form>
+						</td>
+						<td >
+							<form class="teamCard">
+								<div id="teamCard" >
+									<h4 style="text-align:center">{{pair.dTeam.name}} - {{pair.dTeam.uniqueID}} </h4>
+									<b>Team Record:</b> {{pair.dTeam.record}} <br>
+									<b>Team CS:</b> {{pair.dTeam.combinedStr}} <br>
+									<b>Team PD:</b> {{pair.dTeam.pointDiff}} <br>
+								</div>
+							</form>
+						</td>
+						<td > 
+							<b ng-show = "!pair.isImpermissible">Permissible</b>
+							<p ng-show = "pair.isImpermissible">
+							<b>Impermissible</b><br>
+							<b>Proposed Swap: {{pair.inTeam.uniqueID}} and {{pair.outTeam.uniqueID}}</b><br>
+							<input type="button" value="Swap" id="swap_button" class="btn btn-default" ng-click="swapTeams(pair, this.newPairings)">
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<input type="button" class="btn btn-default" ng-disabled="this.unresolved" ng-click = "saveSwaps()" value="Enter Round {{round}} Results" ui-sref="screen4" id="startR_button"></form>	
+		<img class="backButton" src="resources/img/backbutton.png" ng-click = "undoRound()" ui-sref="screen4">
+		<img class="forwardButton" src="resources/img/forwardbutton.png" align="right" ng-show = "!this.unresolved" ng-click = "saveSwaps()" ui-sref="screen4">
+		<br></br>
+	</div>
+	

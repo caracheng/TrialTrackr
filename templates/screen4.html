@@ -1,0 +1,91 @@
+<h1 align="center">Round {{round}} - {{name}}</h1>
+<center><div class="directions">Enter scores from round {{round}} to calculate team pairings for the next round.</div></center>
+<p align="center" ng-show = "round == 1">Coin Flip Results: 
+	<select ng-model = "flip1" ng-options="side for side in coinflip" required></select>
+</p>
+	<div id="teamChoicesSummary" ng-init="showTeams()">
+		<form name="teamCards" id = "teamCards">	
+			<table cellspacing="0" cellpadding="0" id="teamRanktable" class="setTeamCard">
+				<colgroup span="2"></colgroup>
+				<tbody>
+					<tr class="status">
+					    <th scope="col" style="text-align:center" title="Plaintiff"><h3>Plaintiff</h3></th>
+						<th scope="col" title="Plaintiff" style="text-align:center"><h3>versus</h3></th>
+						<th scope="col" style="text-align:center" title="Defense"><h3>Defense</h3></th>
+					</tr>
+					<tr ng-repeat="pair in this.pairings">
+						<td>
+							<!--<form id="resultsFormp" class="teamCard">-->
+								<div id="teamCardFormP"  class="teamCard form-horizontal">
+									<h4 style="text-align:center">{{pair.pTeam.name}} - {{pair.pTeam.uniqueID}} </h4> 
+									<b>Team Record:</b> {{pair.pTeam.record + pair.pTeam.tempRecord}} <br>
+									<b>Team CS:</b> {{pair.pTeam.combinedStr}} <br>
+									<b>Team PD:</b> {{pair.pTeam.pointDiff + pair.pTeam.temp1 + pair.pTeam.temp2}} <br>
+										<div class="form-group">
+											<label for="BallotsWon" class="col-sm-3 control-label"> Ballots Won: </label>
+											<div class="col-sm-5 col-xs-8">
+												<select ng-model = "pair.pTeam.tempRecord" ng-options="value for value in values" name="dropDownRecord" class="form-control" required></select> 
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="Ballot1" class="col-sm-3 control-label"> Ballot 1 Result: </label>
+											<div class="col-sm-5 col-xs-8">
+												<input type="number" ng-model="pair.pTeam.temp1" id="ballot1pd" min="-126" max="126" placeholder="-126 to +126" class="form-control" required></input> 
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="Ballot2" class="col-sm-3 control-label"> Ballot 2 Result: </label>
+											<div class="col-sm-5 col-xs-8">
+												<input type="number" ng-model="pair.pTeam.temp2" id="ballot2pd" min="-126" max="126" placeholder="-126 to +126" class="form-control" required></input> 
+											</div>
+										</div>
+										
+									
+								</div>
+							<!--</form>-->
+						</td>
+						
+											<td width="20px"><center><h2>v.</h2></center></td>
+
+											
+						<td>
+							<!--<form id="resultsFormd" class="teamCard">-->
+								<div id="teamCardFormD" class="teamCard form-horizontal">
+									<h4 style="text-align:center"> {{pair.dTeam.name}} - {{pair.dTeam.uniqueID}} </h4> 
+										<b>Team Record:</b> {{pair.dTeam.record + pair.dTeam.tempRecord}} <br>
+										<b>Team CS:</b> {{pair.dTeam.combinedStr}} <br>
+										<b>Team PD:</b> {{pair.dTeam.pointDiff + pair.dTeam.temp1 + pair.dTeam.temp2}} <br>
+										<div class="form-group">
+											<label for="BallotsWon" class="col-sm-3 control-label"> Ballots Won: </label>
+											<div class="col-sm-5 col-xs-8">
+												<select ng-model = "pair.dTeam.tempRecord" name="dropDownRecord" ng-options="value for value in values" class="form-control" required></select> 
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="Ballot1" class="col-sm-3 control-label"> Ballot 1 Result: </label>
+											<div class="col-sm-5 col-xs-8">
+												<input type="number" ng-model="pair.dTeam.temp1" id="ballot1pd" min="-126" max="126" placeholder="-126 to +126" class="form-control" required></input> 
+											</div>
+											  <!--GL: A helpful link to angular js+ddl validation. http://stackoverflow.com/questions/15360094/angularjs-dropdown-required-validation-->
+
+										</div>
+										<div class="form-group">
+											<label for="Ballot2" class="col-sm-3 control-label"> Ballot 2 Result: </label>
+											<div class="col-sm-5 col-xs-8">
+												<input type="number" ng-model="pair.dTeam.temp2" id="ballot2pd" min="-126" max="126" placeholder="-126 to +126" class="form-control" required></input> 
+											</div>
+										</div>
+								</div>
+							<!--</form>-->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="button" class="btn btn-default" ng-disabled="teamCards.$invalid" ng-click = "saveRound()" ng-show="round != 4" value="See Pairings" ui-sref="screen5" id="startP_button">
+			<input type="button" class="btn btn-default" ng-disabled="teamCards.$invalid" ng-click = "saveRound()" ng-show="round == 4" value="See Results" ui-sref="screen6" id="startP_button">
+			<img class="backButton" src="resources/img/backbutton.png" ng-show = "round == 1" ui-sref="screen3">
+			<img class="backButton" src="resources/img/backbutton.png" ng-show = "round != 1" ng-click = "undoRound()" ui-sref="screen4">
+			<img class="forwardButton" src="resources/img/forwardbutton.png" align="right" ng-click = "saveRound()" ui-sref="screen5" ng-show="round != 4 && !teamCards.$invalid">
+			<img class="forwardButton" src="resources/img/forwardbutton.png" align="right" ng-click = "saveRound()" ui-sref="screen6" ng-show="round == 4 && !teamCards.$invalid">
+		</form>
+	</div>

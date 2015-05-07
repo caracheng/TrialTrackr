@@ -1,0 +1,93 @@
+<!--GL: Why ng disable without ng model does not work: http://stackoverflow.com/questions/16207202/required-attribute-not-working-with-file-input-in-angular-js-->
+<h1 align="center">Setting up Round {{round}} - {{name}}</h1>
+<center><div class="directions">Enter team information <b>randomly</b>, then click the next arrow when you're ready to enter in the scores for round 1.</div></center>
+<input type="button" class="btn btn-default" ng-click="runAutoPop(pairing)" value="Run Auto-Populate">
+	<div id="enterTeams" ng-init = "configTeams()" class="cardTableTop">
+		<form name="teamCards" id="teamCards">
+			<table cellspacing="0" cellpadding="0" id="teamSetUpTable" class="setTeamCard">
+				<colgroup span="2"></colgroup>
+				<tbody>
+					<tr class="status">
+						<th scope="col" title="Plaintiff" style="text-align:center"><h3>Plaintiff</h3></th>
+						<th scope="col" title="versus" style="text-align:center"><h3>versus</h3></th>
+						<th scope="col" title="Defense" style="text-align:center"><h3>Defense</h3></th>
+					</tr>
+					<tr ng-repeat="pair in pairings"> <!--Don't have ID attributes in repeat-->
+					<td>
+						<div class="form-group" ng-show = "$index == numTeams && pair.pTeam.byeTeam">
+							<div >
+								<center><h1>BYE TEAM</h1></center>
+							</div>
+						</div>
+						<div id="teamCardFormP" ng-hide = "$index == numTeams && pair.pTeam.byeTeam" class="teamCard form-horizontal">
+							<div class="form-group">
+								<label for="TeamNumber" class="col-sm-2 control-label"> Team {{pair.pTeam.rank+1}} </label> 
+							</div>
+							<div id="teamCard" class="form-group">
+								<label for="TeamName" class="col-sm-3 control-label"> Name: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamName{{pair.pTeam.rank}}" name="teamName" ng-model = "pair.pTeam.name" placeholder="ex. Macalester Mock Trial Team" class="form-control" required></input>
+								</div>
+							</div>
+							<div  class="form-group">
+								<label for="TeamID" class="col-sm-3 control-label"> Number: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamID{{pair.pTeam.rank}}" name="teamNumber" ng-model = "pair.pTeam.uniqueID" placeholder="ex. 9999" class="form-control" required></input>
+								</div>
+							</div>
+							<div  class="form-group">
+								<label for="TeamImp" class="col-sm-3 control-label"> Impermissible: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamImp{{pair.pTeam.rank}}" name="impermissible" placeholder="ex. 1023, 1024" class="form-control" ng-model="pair.pTeam.fieldVal" ></input>
+									<!--added a fake ng-model to bind the impermissible field to something in order for required to work-->
+								</div>
+							</div>
+						</div>
+					</td>
+					
+					<td width="20px"><div ng-hide="$index == numTeams && isByeTeam"><center><h2>v.</h2></center></div>
+					<div ng-show="$index == numTeams && isByeTeam"><center><img src="resources/img/swap.gif" width="50" id="swapButton" ng-click="swapTeams()"></center></div>
+					</td>
+					
+					<td>
+					<div class="form-group" ng-show = "$index == numTeams && pair.dTeam.byeTeam">
+						<div >
+							<center><h1>BYE TEAM</h1></center>
+						</div>
+					</div>
+					<div class="form-group" ng-hide = "$index == numTeams && pair.dTeam.byeTeam" >
+						<div id="teamCardFormD" class="teamCard form-horizontal">
+							<div class="form-group">
+								<label for="TeamNumber" class="col-sm-2 control-label"> Team {{pair.dTeam.rank+1}} </label> 
+							</div>
+							<div id="teamCard" class="form-group">
+								<label for="TeamName" class="col-sm-3 control-label"> Name: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamName{{pair.dTeam.rank}}" name="teamName" ng-model = "pair.dTeam.name" placeholder="ex. Macalester Mock Trial Team" class="form-control" required></input>
+								</div>
+							</div>
+							<div  class="form-group">
+								<label for="TeamID" class="col-sm-3 control-label"> Number: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamID{{pair.dTeam.rank}}" name="teamNumber" ng-model = "pair.dTeam.uniqueID" placeholder="ex. 9999" class="form-control" required></input>
+									<!--added a fake ng-model to bind the impermissible field to something in order for required to work-->
+
+								</div>
+							</div>
+							<div  class="form-group">
+								<label for="TeamImp" class="col-sm-3 control-label"> Impermissible: </label>
+								<div class="col-sm-5 col-xs-8">
+									<input type="text" id="teamImp{{pair.dTeam.rank}}" name="impermissible" placeholder="ex. 1023, 1024" class="form-control" ng-model="pair.dTeam.fieldVal" ></input>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="button" class="btn btn-default" ng-click = "startR1()" ui-sref="screen4" value="Start Round 1" id="startR_button" name="startR_button" ng-disabled="teamCards.$invalid">
+		</form>
+	</div>

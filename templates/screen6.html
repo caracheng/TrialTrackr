@@ -1,0 +1,23 @@
+<img class="backButton" src="resources/img/backbutton.png" ui-sref="screen4" ng-click="undoRound()">
+<h1 align="center">Final Results</h1>
+	<div ng-init="getWinners()">
+		<table cellspacing="0" cellpadding="0" class="setTeamCard">
+			<tbody>
+				<tr ng-repeat="winner in this.finalTeams">
+					<td >
+						<form class="teamCard">
+							<div id="teamCard">
+								<center>
+									<b>Final Rank:</b> {{winner.rank}} <br>
+									<b>{{winner.name}} - {{winner.uniqueID}} </b> <br>
+									<b>Team Record:</b> {{winner.record}} <br>
+									<b>Team CS:</b> {{winner.combinedStr}} <br>
+									<b>Team PD:</b> {{winner.pointDiff}} <br>
+								</center>
+							</div>
+						</form>
+					</td>
+				</tr>	
+			</tbody>		
+		</table>
+	</div>
