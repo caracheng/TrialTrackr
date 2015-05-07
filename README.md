@@ -18,20 +18,23 @@ TrialTrackr currently supports 4-round tournaments paired in accordance with the
 
 TrialTrackr does not support power-protected pairing (of the kind used at AMTA regionals and ORCs), weighted partial ballot, or bracket-based pairing methods at this time.
 
+<br>
 <b>Framework:</b> 
 
-Angular JS (back-end)
+Javascript and Angular JS (back-end)
 
 CSS, HTML, Bootstrap (front-end)
 
-Mongoose (server) for local testing.
+Mongoose (server) for local testing, Amazon S3 for deployment.
 
 <br>
-<b>Overview of the File Structure:</b>
+<b>File Structure:</b>
 
 <b>js/controllers</b> - has all of our screen controllers.
 
-<b>templates</b> - has all our html screen fragments.
+<b>js</b> - libraries, model, and other js files.
+
+<b>templates</b> - has all our html screen templates.
 
 <b>resources</b> - css, img, fonts.
 
@@ -47,7 +50,7 @@ To run the application locally, clone and fork this github repository. It contai
 
 http://cesanta.com/mongoose.shtml
 
-We used NotePad++ to edit code, but any text editor should work. 
+We used NotePad++ to edit code, but any text editor or IDE should work. 
 
 For our UI, we used a Bootstrap template:
 http://startbootstrap.com/template-overviews/landing-page/
