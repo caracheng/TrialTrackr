@@ -22,7 +22,6 @@ function Screen4Ctrl($scope, $state){
 		var loadTour = "tournament" + (tournament.roundNumber - 1);
 		tournament = JSON.parse(localStorage.getItem(loadTour));
 		pairings = JSON.parse(localStorage.getItem(loadPair));
-		console.log("loaded last round");
 		window.swapList = [];
 		$scope.showTeams();
 	}
