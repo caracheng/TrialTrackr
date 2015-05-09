@@ -17,7 +17,9 @@ function Screen4Ctrl($scope, $state){
 	
 	$scope.coinflip = ["Heads", "Tails"];
 	
-	$scope.pdChanged = function(team){
+	$scope.pdChanged = function(pairing, team){
+		
+		//calculate record from PD
 		if (team.temp1>0 && team.temp2>0){
 			team.tempRecord = 2;
 		} else if (team.temp1>0 && team.temp2<0 || team.temp1<0 && team.temp2>0 || team.temp1==0 && team.temp2==0) {
@@ -28,6 +30,20 @@ function Screen4Ctrl($scope, $state){
 			team.tempRecord = 0.5;
 		} else if (team.temp1<0 && team.temp2<0){
 			team.tempRecord = 0;
+		}
+		
+		//update opponent results, so long as there is no penalty (all loss, point subtraction, etc.)
+		if (pairing.penalty == false){
+			if (team.status == "p"){
+				pairing.dTeam.tempRecord = (2-team.tempRecord);
+				pairing.dTeam.temp1 = team.temp1 * -1;
+				pairing.dTeam.temp2 = team.temp2 * -1;
+			}
+			if (team.status == "d"){
+				pairing.pTeam.tempRecord = (2-team.tempRecord);
+				pairing.pTeam.temp1 = team.temp1 * -1;
+				pairing.pTeam.temp2 = team.temp2 * -1;
+			}
 		}
 	}
 	

@@ -25,13 +25,13 @@
 										<div class="form-group">
 											<label for="Ballot1" class="col-sm-3 control-label"> Ballot 1 Result: </label>
 											<div class="col-sm-5 col-xs-8">
-												<input type="number" ng-model="pair.pTeam.temp1" ng-change = "pdChanged(pair.pTeam)" id="ballot1pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
+												<input type="number" ng-model="pair.pTeam.temp1" ng-change = "pdChanged(pair, pair.pTeam)" id="ballot1pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
 											</div>
 										</div>
 										<div class="form-group">
 											<label for="Ballot2" class="col-sm-3 control-label"> Ballot 2 Result: </label>
 											<div class="col-sm-5 col-xs-8">
-												<input type="number" ng-model="pair.pTeam.temp2" ng-change = "pdChanged(pair.pTeam)" id="ballot2pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
+												<input type="number" ng-model="pair.pTeam.temp2" ng-change = "pdChanged(pair, pair.pTeam)" id="ballot2pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
 											</div>
 										</div>
 										
@@ -40,7 +40,11 @@
 							<!--</form>-->
 						</td>
 						
-											<td width="20px"><center><h2>v.</h2></center></td>
+											<td width="20px">
+											<center><h2>v.</h2></center>
+											<input type="checkbox" ng-model="pair.penalty" id = "penalty">
+											<label for="penalty">Penalty?</label>
+											</td>
 
 											
 						<td>
@@ -53,7 +57,7 @@
 										<div class="form-group">
 											<label for="Ballot1" class="col-sm-3 control-label"> Ballot 1 Result: </label>
 											<div class="col-sm-5 col-xs-8">
-												<input type="number" ng-model="pair.dTeam.temp1" ng-change = "pdChanged(pair.dTeam)" id="ballot1pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
+												<input type="number" ng-model="pair.dTeam.temp1" ng-change = "pdChanged(pair, pair.dTeam)" id="ballot1pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
 											</div>
 											  <!--GL: A helpful link to angular js+ddl validation. http://stackoverflow.com/questions/15360094/angularjs-dropdown-required-validation-->
 
@@ -61,7 +65,7 @@
 										<div class="form-group">
 											<label for="Ballot2" class="col-sm-3 control-label"> Ballot 2 Result: </label>
 											<div class="col-sm-5 col-xs-8">
-												<input type="number" ng-model="pair.dTeam.temp2" ng-change = "pdChanged(pair.dTeam)" id="ballot2pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
+												<input type="number" ng-model="pair.dTeam.temp2" ng-change = "pdChanged(pair, pair.dTeam)" id="ballot2pd" min="-126" max="126" placeholder="-126 to 126" class="form-control" required></input> 
 											</div>
 										</div>
 								</div>

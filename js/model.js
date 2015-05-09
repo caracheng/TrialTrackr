@@ -35,6 +35,7 @@ function Pairing(team1, team2) {
 	this.dTeam = team2; //defense team
 	this.inTeamSwap; //holds proposed swaps for impermissible resolution
 	this.outTeamSwap;
+	this.penalty = false;
 }
 
 function ProposedSwap(inTeam, outTeam) { //swap object used only in solving impermissibles
