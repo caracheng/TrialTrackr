@@ -82,21 +82,21 @@ window.updateCS = function(team, allTeams){	//updates the CS of a team
 window.updateRanks = function(){ //updates the rank and side of every team
 	if(!tournament.isSideConstrained){
 		var rank = 0
-		for(var i = 0; i< pairings.length; i+=1){
-			pairings[i].pTeam.rank = rank;
+		for(var i = 0; i< tournament.pairings.length; i+=1){
+			tournament.pairings[i].pTeam.rank = rank;
 			rank +=1;
-			pairings[i].dTeam.rank = rank;
+			tournament.pairings[i].dTeam.rank = rank;
 			rank +=1;
-			pairings[i].pTeam.status = "p";
-			pairings[i].dTeam.status = "d";
+			tournament.pairings[i].pTeam.status = "p";
+			tournament.pairings[i].dTeam.status = "d";
 		}
 	}
 	if(tournament.isSideConstrained){
 		for(var i = 0; i< pairings.length; i+=1){
-			pairings[i].pTeam.rank = i;
-			pairings[i].dTeam.rank = i;
-			pairings[i].pTeam.status = "p";
-			pairings[i].dTeam.status = "d";
+			tournament.pairings[i].pTeam.rank = i;
+			tournament.pairings[i].dTeam.rank = i;
+			tournament.pairings[i].pTeam.status = "p";
+			tournament.pairings[i].dTeam.status = "d";
 		}
 	}
 }

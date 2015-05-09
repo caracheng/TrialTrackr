@@ -42,13 +42,13 @@ function Screen5Ctrl($scope, $state){
 		$scope.swapList = swapList;
 		
 		//update pairings object and ranks
-		pairings = thesePairings;
+		tournament.pairings = thesePairings;
 		updateRanks();
 		
 		//check the impermissibles again
-		checkImpermissibles(pairings, swapList);
+		checkImpermissibles(tournament.pairings, swapList);
 		//update the screen
-		this.newPairings = pairings;
+		this.newPairings = tournament.pairings;
 		$scope.unresolved = tournament.impRemain;
 	}
 	
@@ -57,14 +57,14 @@ function Screen5Ctrl($scope, $state){
 	//$scope.unresolved = tournament.impRemain;
 	
 	$scope.flipSides = function(){ //executes when tab director switches pairing sides in round 3 
-		for (var i = 0; i < pairings.length; i+=1){
-			var wasP = pairings[i].pTeam;
-			var wasD = pairings[i].dTeam;
+		for (var i = 0; i < tournament.pairings.length; i+=1){
+			var wasP = tournament.pairings[i].pTeam;
+			var wasD = tournament.pairings[i].dTeam;
 
-			pairings[i].pTeam = wasD;
-			pairings[i].dTeam = wasP;
-			pairings[i].pTeam.status = "p";
-			pairings[i].dTeam.status = "d";
+			tournament.pairings[i].pTeam = wasD;
+			tournament.pairings[i].dTeam = wasP;
+			tournament.pairings[i].pTeam.status = "p";
+			tournament.pairings[i].dTeam.status = "d";
 		}
 		if (tournament.rnd3Flip == "Heads") { //change coin flip result on click
 			tournament.rnd3Flip = "Tails";
@@ -73,14 +73,14 @@ function Screen5Ctrl($scope, $state){
 		} 
 		this.flip = tournament.rnd3Flip;
 		updateRanks();
-		checkImpermissibles(pairings, swapList);
-		this.newPairings = pairings;
+		checkImpermissibles(tournament.pairings, swapList);
+		this.newPairings = tournament.pairings;
 	}
 	
 	$scope.coinflip = ["Heads", "Tails"]; //options for coinflip results, heads by default
 	
 	$scope.saveSwaps = function(){ //triggered when user finishes with impermissibles and saves their results
-		pairings = this.newPairings;
+		tournament.pairings = this.newPairings;
 		var savePair = "pairings" + tournament.roundNumber;
 		var saveTour = "tournament" + tournament.roundNumber;
 		localStorage.setItem(savePair, JSON.stringify(pairings));
@@ -105,7 +105,7 @@ function Screen5Ctrl($scope, $state){
 		var rightColumn = [];
 		
 		//swap list needs to be reset to empty after each round
-		window.swapList = [];
+		swapList = [];
 		this.swapList = [];
 		
 		//determines whether or not this round is side constrained - only round 3 is side constrained
@@ -118,8 +118,8 @@ function Screen5Ctrl($scope, $state){
 		var numTeams = 0; 
 		
 		//un-pair the teams, and push them into either two stacks of teams or one
-		for (var i = 0; i < pairings.length; i+=1){
-			var thisPair = pairings[i];
+		for (var i = 0; i < tournament.pairings.length; i+=1){
+			var thisPair = tournament.pairings[i];
 			var wasPTeam = thisPair.pTeam;
 			var wasDTeam = thisPair.dTeam;
 			
@@ -248,7 +248,7 @@ function Screen5Ctrl($scope, $state){
 				this.newPairings.push(pair);
 			}
 		}
-		pairings = this.newPairings;
+		tournament.pairings = this.newPairings;
 		checkImpermissibles(this.newPairings, swapList); //check for impermissibles
 		$scope.unresolved = tournament.impRemain;
 	}

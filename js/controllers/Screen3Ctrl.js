@@ -10,12 +10,12 @@ function Screen3Ctrl($scope, $state){
 	
 		
 	$scope.swapByeTeam = function(){
-		var lastIndex = pairings.length-1;
-		var lastPairing = pairings[lastIndex];
+		var lastIndex = tournament.pairings.length-1;
+		var lastPairing = tournament.pairings[lastIndex];
 		var dTeam = lastPairing.pTeam;
 		var pTeam = lastPairing.dTeam;
 		var swappedPairing = new Pairing(pTeam, dTeam);
-		pairings[lastIndex] = swappedPairing;
+		tournament.pairings[lastIndex] = swappedPairing;
 		updateRanks();
 		//alert(pTeam.rank);
 	}
@@ -24,7 +24,7 @@ function Screen3Ctrl($scope, $state){
 		//on load, pull tournament data from the model 
 		this.name = tournament.name; 
 		this.round = tournament.roundNumber;
-		this.pairings = pairings;
+		this.pairings = tournament.pairings;
 		this.numTeams = Math.ceil(tournament.totalTeams/2) - 1;
 	}
 	
@@ -37,7 +37,7 @@ function Screen3Ctrl($scope, $state){
 		var counter = 0;
 		for (var i=0; i < (parseInt(tournament.totalTeams)/2); i++){
 						
-			var pairing = pairings[i];//grab the pairing
+			var pairing = tournament.pairings[i];//grab the pairing
 			var plaintiff = pairing.pTeam;//grab the plaintiff
 			var defendant = pairing.dTeam;//grab the defendant
 			

@@ -10,7 +10,7 @@ function Screen4Ctrl($scope, $state){
 		this.name = tournament.name;
 		this.round = tournament.roundNumber;
 		this.flip1 = tournament.rnd1Flip;
-		this.pairings = window.pairings;
+		this.pairings = tournament.pairings;
 	}
 	
 	$scope.values = [0, 0.5, 1, 1.5, 2];
@@ -66,24 +66,23 @@ function Screen4Ctrl($scope, $state){
 		
 		//save the round
 		if (tournament.roundNumber == 1){tournament.rnd1Flip = this.flip1;}
-		for (var i = 0; i < this.pairings.length; i++) {
+		for (var i = 0; i < tournament.pairings.length; i++) {
 			//update p team's record and points
-			this.pairings[i].pTeam.record = pairings[i].pTeam.tempRecord + pairings[i].pTeam.record;
-			this.pairings[i].pTeam.pointDiff = pairings[i].pTeam.temp1 + pairings[i].pTeam.temp2 + pairings[i].pTeam.pointDiff;
+			tournament.pairings[i].pTeam.record = tournament.pairings[i].pTeam.tempRecord + tournament.pairings[i].pTeam.record;
+			tournament.pairings[i].pTeam.pointDiff = tournament.pairings[i].pTeam.temp1 + tournament.pairings[i].pTeam.temp2 + tournament.pairings[i].pTeam.pointDiff;
 			
 			//update d team's record and points
-			this.pairings[i].dTeam.record = pairings[i].dTeam.tempRecord + pairings[i].dTeam.record;
-			this.pairings[i].dTeam.pointDiff = pairings[i].dTeam.temp1 + pairings[i].dTeam.temp2 + pairings[i].dTeam.pointDiff;
+			tournament.pairings[i].dTeam.record = tournament.pairings[i].dTeam.tempRecord + tournament.pairings[i].dTeam.record;
+			tournament.pairings[i].dTeam.pointDiff = tournament.pairings[i].dTeam.temp1 + tournament.pairings[i].dTeam.temp2 + tournament.pairings[i].dTeam.pointDiff;
 
 			//to be used for determining impermissibles
-			this.pairings[i].pTeam.impermissibles.push(pairings[i].dTeam.uniqueID);
-			this.pairings[i].dTeam.impermissibles.push(pairings[i].pTeam.uniqueID);
+			tournament.pairings[i].pTeam.impermissibles.push(tournament.pairings[i].dTeam.uniqueID);
+			tournament.pairings[i].dTeam.impermissibles.push(tournament.pairings[i].pTeam.uniqueID);
 			
 			//to be used for calculating CS
-			this.pairings[i].pTeam.opponents.push([pairings[i].dTeam.temp1, pairings[i].dTeam.temp2, pairings[i].dTeam.uniqueID]);
-			this.pairings[i].dTeam.opponents.push([pairings[i].pTeam.temp1, pairings[i].pTeam.temp2, pairings[i].pTeam.uniqueID]);
+			tournament.pairings[i].pTeam.opponents.push([tournament.pairings[i].dTeam.temp1, tournament.pairings[i].dTeam.temp2, tournament.pairings[i].dTeam.uniqueID]);
+			tournament.pairings[i].dTeam.opponents.push([tournament.pairings[i].pTeam.temp1, tournament.pairings[i].pTeam.temp2, tournament.pairings[i].pTeam.uniqueID]);
 		}
-		//Save the round for the back button
 		tournament.roundNumber += 1;
 	}
 	

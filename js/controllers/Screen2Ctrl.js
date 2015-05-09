@@ -11,7 +11,7 @@ function Screen2Ctrl($scope, $state){
 			if (tournament.totalTeams > 0){
 				tournament.name = "";
 				tournament.totalTeams = 0;
-				pairings = [];
+				tournament.pairings = [];
 				tournament.byeTeam = false;
 			}
 			localStorage.clear();
@@ -31,7 +31,7 @@ function Screen2Ctrl($scope, $state){
 					newTeam2.name = "Bye Team";
 					newTeam2.uniqueID = "9999";
 					var thisPair = new Pairing(newTeam, newTeam2);
-					pairings.push(thisPair);
+					tournament.pairings.push(thisPair);
 				}	
 				else {			
 					var newTeam = new TeamObject(j);
@@ -39,7 +39,7 @@ function Screen2Ctrl($scope, $state){
 					newTeam.status = "p";
 					newTeam2.status = "d"; 
 					var thisPair = new Pairing(newTeam, newTeam2);
-					pairings.push(thisPair);					
+					tournament.pairings.push(thisPair);					
 				}
 			}
 		}

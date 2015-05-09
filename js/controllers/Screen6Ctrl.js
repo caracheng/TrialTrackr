@@ -23,8 +23,8 @@ function Screen6Ctrl($scope, $state){
 		var unsortedTeams = [];
 		
 		//unpair the teams into a list of unsorted teams
-		for (var i = 0; i < pairings.length; i+=1){
-			var thisPair = pairings[i];
+		for (var i = 0; i < tournament.pairings.length; i+=1){
+			var thisPair = tournament.pairings[i];
 			var team1 = thisPair.pTeam;
 			var team2 = thisPair.dTeam;
 			unsortedTeams.push(team1);

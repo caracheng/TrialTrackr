@@ -8,7 +8,8 @@ window.tournament = {
 	rnd3Flip: "Heads", 
 	isSideConstrained: false, 
 	byeTeam: false, 
-	impRemain: false
+	impRemain: false,
+	pairings: [],
 	};
 window.pairings = [];
 window.swapList = [];
