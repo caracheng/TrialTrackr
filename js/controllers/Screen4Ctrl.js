@@ -17,6 +17,20 @@ function Screen4Ctrl($scope, $state){
 	
 	$scope.coinflip = ["Heads", "Tails"];
 	
+	$scope.pdChanged = function(team){
+		if (team.temp1>0 && team.temp2>0){
+			team.tempRecord = 2;
+		} else if (team.temp1>0 && team.temp2<0 || team.temp1<0 && team.temp2>0 || team.temp1==0 && team.temp2==0) {
+			team.tempRecord = 1;
+		} else if (team.temp1>0 && team.temp2==0 || team.temp1==0 && team.temp2>0) {
+			team.tempRecord = 1.5;
+		} else if (team.temp1<0 && team.temp2==0 || team.temp1==0 && team.temp2<0) {
+			team.tempRecord = 0.5;
+		} else if (team.temp1<0 && team.temp2<0){
+			team.tempRecord = 0;
+		}
+	}
+	
 	$scope.undoRound = function(){
 		var loadPair = "pairings" + (tournament.roundNumber - 1);
 		var loadTour = "tournament" + (tournament.roundNumber - 1);
