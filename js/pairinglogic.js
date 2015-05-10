@@ -92,7 +92,7 @@ window.updateRanks = function(){ //updates the rank and side of every team
 		}
 	}
 	if(tournament.isSideConstrained){
-		for(var i = 0; i< pairings.length; i+=1){
+		for(var i = 0; i< tournament.pairings.length; i+=1){
 			tournament.pairings[i].pTeam.rank = i;
 			tournament.pairings[i].dTeam.rank = i;
 			tournament.pairings[i].pTeam.status = "p";
@@ -123,6 +123,12 @@ window.checkImpermissibles = function(pairedTeams, swapped){ //check for impermi
 					} 
 			}
 		}
+		for (var x = 0; x < pairedTeams.length; x+=1){ //find the top impermissible
+			if (pairedTeams[x].isImpermissible){
+				pairedTeams[x].topImp = true;
+				break;
+			}
+		}
 	}
 }
 
@@ -138,7 +144,6 @@ window.proposeSwapNSC = function(impMatch, location, pairs, swapped){ //non side
 			var teamIDa = swap.outTeam.uniqueID + "-" + swap.inTeam.uniqueID;
 			var teamIDb = swap.inTeam.uniqueID + "-" + swap.outTeam.uniqueID;
 			if (!_.contains(swapped, teamIDa) && !_.contains(swapped, teamIDb)){
-				console.log("legal swap proposed");
 				swOptions.push(swap);
 			}
 		}
@@ -203,8 +208,11 @@ window.proposeSwapSC = function(impMatch, location, pairs, swapped){ //proposing
 
 	var leastDiff = pickSwapAlg(tournament.roundNumber); //pick a sorting algorithm for proposed swaps
 	swOptions.sort(leastDiff); //sort the proposed swaps by least difference betweens scores
-	//console.log(swOptions);
-	//console.log(swOptions[0]);
-	pairs[location].inTeam = swOptions[0].inTeam; //put proposed teams to swap in place
-	pairs[location].outTeam = swOptions[0].outTeam;
+	console.log(swOptions);
+	if (swOptions.length > 0){
+		pairs[location].inTeam = swOptions[0].inTeam; //put proposed teams to swap in place
+		pairs[location].outTeam = swOptions[0].outTeam;
+	} else {
+		alert("Your impermissibles cannot be resolved. Use the back arrow to double-check results from your last round.");
+	}
 }	

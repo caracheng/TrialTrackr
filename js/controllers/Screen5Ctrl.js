@@ -81,18 +81,14 @@ function Screen5Ctrl($scope, $state){
 	
 	$scope.saveSwaps = function(){ //triggered when user finishes with impermissibles and saves their results
 		tournament.pairings = this.newPairings;
-		var savePair = "pairings" + tournament.roundNumber;
 		var saveTour = "tournament" + tournament.roundNumber;
-		localStorage.setItem(savePair, JSON.stringify(pairings));
 		localStorage.setItem(saveTour, JSON.stringify(tournament));
 	}
 	
 	$scope.undoRound = function(){ //triggered when user clicks "back". loads last round's tournament and pairing data
-		var loadPair = "pairings" + (tournament.roundNumber - 1);
 		var loadTour = "tournament" + (tournament.roundNumber - 1);
 		tournament = JSON.parse(localStorage.getItem(loadTour));
-		pairings = JSON.parse(localStorage.getItem(loadPair));
-		window.swapList = [];
+		swapList = [];
 	}
 	
 	$scope.pairTeams = function() {

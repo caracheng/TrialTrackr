@@ -48,10 +48,8 @@ function Screen4Ctrl($scope, $state){
 	}
 	
 	$scope.undoRound = function(){
-		var loadPair = "pairings" + (tournament.roundNumber - 1);
 		var loadTour = "tournament" + (tournament.roundNumber - 1);
 		tournament = JSON.parse(localStorage.getItem(loadTour));
-		pairings = JSON.parse(localStorage.getItem(loadPair));
 		window.swapList = [];
 		$scope.showTeams();
 	}
@@ -59,9 +57,7 @@ function Screen4Ctrl($scope, $state){
 	$scope.saveRound = function() {
 		
 		//save the round without latest entries
-		var savePair = "pairings" + tournament.roundNumber;
 		var saveTour = "tournament" + tournament.roundNumber;
-		localStorage.setItem(savePair, JSON.stringify(pairings));
 		localStorage.setItem(saveTour, JSON.stringify(tournament));
 		
 		//save the round
