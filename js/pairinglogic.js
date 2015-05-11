@@ -137,34 +137,53 @@ window.proposeSwapNSC = function(impMatch, location, pairs, swapped){ //non side
 	d = impMatch.dTeam;
 	swOptions = [];
 	radius = 1;
+	distance = 1;
 	while (radius < pairs.length){
 		if (location - radius >= 0){
 			swap = new ProposedSwap(p, pairs[location-radius].dTeam);
-			swap.distance = radius;
+			swap.distance = distance;
+			var teamIDa = swap.outTeam.uniqueID + "-" + swap.inTeam.uniqueID;
+			var teamIDb = swap.inTeam.uniqueID + "-" + swap.outTeam.uniqueID;
+			if (!_.contains(swapped, teamIDa) && !_.contains(swapped, teamIDb)){
+				swOptions.push(swap);
+			}
+			swap = new ProposedSwap(p, pairs[location-radius].pTeam);
+			swap.distance = distance + 1;
 			var teamIDa = swap.outTeam.uniqueID + "-" + swap.inTeam.uniqueID;
 			var teamIDb = swap.inTeam.uniqueID + "-" + swap.outTeam.uniqueID;
 			if (!_.contains(swapped, teamIDa) && !_.contains(swapped, teamIDb)){
 				swOptions.push(swap);
 			}
 		}
-		if (location + radius <= (pairs.length-1)){
+		if ((location + radius) <= (pairs.length-1)){
 			swap2 = new ProposedSwap(d, pairs[location+radius].pTeam);
-			swap2.distance = radius;
+			swap2.distance = distance;
 			var teamIDa = swap2.outTeam.uniqueID + "-" + swap2.inTeam.uniqueID;
 			var teamIDb = swap2.inTeam.uniqueID + "-" + swap2.outTeam.uniqueID;
 			if (!_.contains(swapped, teamIDa) && !_.contains(swapped, teamIDb)){
-
+				swOptions.push(swap2);
+			}
+			swap2 = new ProposedSwap(d, pairs[location+radius].dTeam);
+			swap2.distance = distance + 1;
+			var teamIDa = swap2.outTeam.uniqueID + "-" + swap2.inTeam.uniqueID;
+			var teamIDb = swap2.inTeam.uniqueID + "-" + swap2.outTeam.uniqueID;
+			if (!_.contains(swapped, teamIDa) && !_.contains(swapped, teamIDb)){
 				swOptions.push(swap2);
 			}
 		}
 		radius+=1;
+		distance +=2;
 	}
 
 	var leastDiff = pickSwapAlg(tournament.roundNumber); //pick sorting algorithm for swaps
 	swOptions.sort(leastDiff); //sort the proposed swaps by closest score
-	//console.log(swOptions);
-	pairs[location].inTeam = swOptions[0].inTeam;
-	pairs[location].outTeam = swOptions[0].outTeam;
+	console.log(swOptions);
+	if (swOptions.length > 0){
+		pairs[location].inTeam = swOptions[0].inTeam; //put proposed teams to swap in place
+		pairs[location].outTeam = swOptions[0].outTeam;
+	} else {
+		alert("Your impermissibles cannot be resolved. Use the back arrow to double-check results from your last round.");
+	}
 }	
 
 window.proposeSwapSC = function(impMatch, location, pairs, swapped){ //proposing side constrained swaps

@@ -36,7 +36,7 @@
 						</td>
 						<td > 
 							<b ng-show = "!pair.isImpermissible">Permissible</b>
-							<p ng-show = "pair.isImpermissible">
+							<p style="color:red" ng-show = "pair.isImpermissible">
 							<b>Impermissible</b><br>
 							<b ng-show = "pair.topImp">Proposed Swap: {{pair.inTeam.uniqueID}} and {{pair.outTeam.uniqueID}}</b><br>
 							<input type="button" value="Swap" id="swap_button" class="btn btn-default" ng-show = "pair.topImp" ng-click="swapTeams(pair, this.newPairings)">

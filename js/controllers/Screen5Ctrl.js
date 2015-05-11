@@ -8,34 +8,57 @@ function Screen5Ctrl($scope, $state){
 	
 		
 	$scope.swapTeams = function(aPairing, thesePairings) {
-		var swapSide = aPairing.outTeam.status;
-		var swapDestination = aPairing.outTeam.rank;
+		/*
+		Data this function needs:
+		- side constrained or not
+		- "in" Team's location IN THE PAIRNGS and side
+		- "out" Team's location IN THE PAIRINGS and side
+		*/
 		
-		if (!tournament.isSideConstrained){
-			swapDestination=Math.floor(swapDestination/2); //"target" destination for teams being swapped changes when round is side constrained
-		} 
+		var inTeamRank = aPairing.inTeam.rank;
+		var inTeamSide = aPairing.inTeam.status;
+		var outTeamRank = aPairing.outTeam.rank;
+		var outTeamSide = aPairing.outTeam.status;
 		
-		if (swapSide == "p"){ //plaintiff side swap
-			thesePairings[swapDestination].pTeam = aPairing.inTeam;
-			if (!tournament.isSideConstrained){ //non side constrained swap
-				aPairing.dTeam = aPairing.outTeam;
-
-			} else { //side constrained swap
-				aPairing.pTeam = aPairing.outTeam;
+		if (tournament.isSideConstrained){ //SC
+			if (inTeamSide == "p"){
+				thesePairings[outTeamRank].pTeam = aPairing.inTeam;
+				thesePairings[inTeamRank].pTeam = aPairing.outTeam;
+			} else if (inTeamSide == "d"){
+				thesePairings[outTeamRank].dTeam = aPairing.inTeam;
+				thesePairings[inTeamRank].dTeam = aPairing.outTeam;
 			}
-
-		} else { //defense side swap
-			thesePairings[swapDestination].dTeam = aPairing.inTeam;
-			if (!tournament.isSideConstrained){  //non side constrained
-				aPairing.pTeam = aPairing.outTeam;
-			} else { //side constrained
-				aPairing.dTeam = aPairing.outTeam;
+		} else if (!tournament.isSideConstrained) { //NSC
+			inTeamRank = Math.floor(inTeamRank/2);
+			outTeamRank = Math.floor(outTeamRank/2);
+			console.log(inTeamRank, inTeamSide);
+			console.log(outTeamRank, outTeamSide);
+			if (inTeamSide == "p"){
+				if (outTeamSide == "p"){
+					thesePairings[outTeamRank].pTeam = aPairing.inTeam;
+					thesePairings[inTeamRank].pTeam = aPairing.outTeam;
+				} else if (outTeamSide == "d"){
+					thesePairings[outTeamRank].dTeam = aPairing.inTeam;
+					thesePairings[inTeamRank].pTeam = aPairing.outTeam;
+				}
+			} else if (inTeamSide == "d"){
+				if (outTeamSide == "p"){
+					thesePairings[outTeamRank].pTeam = aPairing.inTeam;
+					thesePairings[inTeamRank].dTeam = aPairing.outTeam;
+				} else if (outTeamSide == "d"){
+					thesePairings[outTeamRank].dTeam = aPairing.inTeam;
+					thesePairings[inTeamRank].dTeam = aPairing.outTeam;
+				}
 			}
 		}
+		
 		//reset impermissibles to false before checking them again
-		aPairing.isImpermissible = false;
-		thesePairings[swapDestination].isImpermissible = false;
+		thesePairings[inTeamRank].isImpermissible = false;
+		thesePairings[inTeamRank].topImp = false;
+		thesePairings[outTeamRank].isImpermissible = false;
+		thesePairings[outTeamRank].topImp = false;
 		tournament.impRemain = false;
+		console.log(thesePairings);
 		
 		//add swap to swap list so it cannot happen again
 		swapList.push(aPairing.outTeam.uniqueID + "-" + aPairing.inTeam.uniqueID);
@@ -43,12 +66,14 @@ function Screen5Ctrl($scope, $state){
 		
 		//update pairings object and ranks
 		tournament.pairings = thesePairings;
+		console.log(tournament.pairings);
 		updateRanks();
 		
 		//check the impermissibles again
 		checkImpermissibles(tournament.pairings, swapList);
 		//update the screen
 		this.newPairings = tournament.pairings;
+		console.log(this.newPairings);
 		$scope.unresolved = tournament.impRemain;
 	}
 	
@@ -148,8 +173,6 @@ function Screen5Ctrl($scope, $state){
 				unsortedTeams[i+1].temp1 = undefined;
 				unsortedTeams[i].temp2 = undefined;
 				unsortedTeams[i+1].temp2 = undefined;
-				unsortedTeams[i].status = "p";
-				unsortedTeams[i+1].status = "d";
 				
 				//find the byeTeam 
 				if (unsortedTeams[i].byeTeam == true) {
@@ -179,6 +202,8 @@ function Screen5Ctrl($scope, $state){
 				//set team ranks
 				sortedTeams[i].rank = i;
 				sortedTeams[i+1].rank = i+1;
+				unsortedTeams[i].status = "p";
+				unsortedTeams[i+1].status = "d";
 				
 				//make a pairing
 				var pair =  new Pairing(sortedTeams[i],sortedTeams[i+1]);
