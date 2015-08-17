@@ -67,7 +67,10 @@ http://underscorejs.org/
 
 <br><b>Testing:</b>
 
-For our testing purposes, we took previous tournament results and input that data into our application. We are currently in the process of writing unit tests. 
+For our testing purposes, we took previous tournament results in the form of tabulation summaries and input that data into our application to see if TrialTrackr is pairing the teams properly.
+
+TrialTrackr has been successfully paired the following tournaments:
+- The 2015 Emerald City Open hosted by the University of Washington
 
 <br>
 <b>Staging and Production Environments:</b>

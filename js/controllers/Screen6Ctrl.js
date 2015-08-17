@@ -11,7 +11,7 @@ function Screen6Ctrl($scope, $state){
 		var loadPair = "pairings" + (tournament.roundNumber - 1);
 		var loadTour = "tournament" + (tournament.roundNumber - 1);
 		tournament = JSON.parse(localStorage.getItem(loadTour));
-		pairings = JSON.parse(localStorage.getItem(loadPair));
+		//pairings = JSON.parse(localStorage.getItem(loadPair));
 		window.swapList = [];
 	}
 	
