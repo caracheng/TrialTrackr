@@ -5,23 +5,34 @@
 		</div>
 	</div>
 		
-	<div id="settingUp">
+	<div id="settingUp" ng-init="checkOldData()" >
 	<h1 align="center">Tournament Set-Up</h1>
-		<form name="setUpForm" class="setUpCard form-horizontal">
-			<div class="form-group">
-				<label for="TournamentName" class="col-sm-5"> Tournament Name </label>
-				<div class="col-sm-4 col-xs-9">
-					<input type="text" class="form-control " id="tourName" placeholder="ex. Macalester Trials" size="50" ng-model="text" required />
+		<h3 align="center">New Tournament</h3>
+			<form name="setUpForm" class="setUpCard form-horizontal">
+				<div class="form-group">
+					<label for="TournamentName" class="col-sm-5"> Tournament Name </label>
+					<div class="col-sm-4 col-xs-9">
+						<input type="text" class="form-control " id="tourName" placeholder="ex. Macalester Trials" size="50" ng-model="text" required />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="TotalTeams" class="col-sm-5"> Total Teams </label> 
-				<div class="col-sm-4 col-xs-9">
-					<input type="number" class="form-control" id="totalTeams" placeholder="8 teams minimum" size="50" min="7" max="100" ng-model="number" required >
+				<div class="form-group">
+					<label for="TotalTeams" class="col-sm-5"> Total Teams </label> 
+					<div class="col-sm-4 col-xs-9">
+						<input type="number" class="form-control" id="totalTeams" placeholder="8 teams minimum" size="50" min="3" max="100" ng-model="number" required >
+					</div>
 				</div>
-			</div>
-			<center><button ng-disabled="setUpForm.$invalid" name="name" ng-click="initTour()" ui-sref="screen3" class="btn btn-default" id="submit_button">Submit</button></center>
-		</form>
+			<center><button ng-disabled="setUpForm.$invalid" name="name" ng-click="initTour()" ui-sref="screen3" class="btn btn-default" id="submit_button">Start</button></center>
+			</form>
+		<h3 align="center">Load Tournament</h3>
+			<form name="setUpForm" class="setUpCard form-horizontal">
+				<div class="form-group">
+					<label for="TournamentName" class="col-sm-5"> Choose File </label>
+					<div class="col-sm-4 col-xs-9">
+						<input type="file" class="form-control " id="fileToLoad" />
+					</div>
+				</div>
+			<center><button name="name" ui-sref="screen4" class="btn btn-default" id="submit_button">Load</button></center>
+			</form>
 	</div>
 	
 	

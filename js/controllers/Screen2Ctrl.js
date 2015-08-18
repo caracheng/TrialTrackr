@@ -6,15 +6,24 @@ module.controller('Screen2Ctrl', Screen2Ctrl);
 
 function Screen2Ctrl($scope, $state){
 
+		$scope.checkOldData = function(){
+			//check for and give option to load old data
+			oldData = checkAutosave();
+			if (oldData){
+				tournament = oldData;
+			}
+		}
+
 		$scope.initTour = function(){
 			//clear out old data
+			localStorage.clear();
+			
 			if (tournament.totalTeams > 0){
 				tournament.name = "";
 				tournament.totalTeams = 0;
 				tournament.pairings = [];
 				tournament.byeTeam = false;
 			}
-			localStorage.clear();
 			
 			tournament.name = $('#tourName').val();
 			tournament.totalTeams = $('#totalTeams').val();
